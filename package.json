@@ -7,6 +7,8 @@
   "description": "Calculate Easter date for given year",
   "keywords": [
     "easter",
+    "date",
+    "calendar",
     "holly week"
   ],
   "type": "module",
