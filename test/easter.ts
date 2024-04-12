@@ -1,29 +1,27 @@
 import test from 'ava';
-import {
-	fromIsoDate, getEaster, ieEaster, toIsoDate,
-} from '../lib/index.js';
+import {fromIsoDate, getEaster, ieEaster,} from '../lib/index.js';
 
 test('Easter date for 10 years', t => {
-	t.is(toIsoDate(getEaster(2024)), '2024-03-31');
-	t.is(toIsoDate(getEaster(2025)), '2025-04-20');
-	t.is(toIsoDate(getEaster(2026)), '2026-04-05');
-	t.is(toIsoDate(getEaster(2027)), '2027-03-28');
-	t.is(toIsoDate(getEaster(2028)), '2028-04-16');
-	t.is(toIsoDate(getEaster(2029)), '2029-04-01');
-	t.is(toIsoDate(getEaster(2030)), '2030-04-21');
-	t.is(toIsoDate(getEaster(2031)), '2031-04-13');
-	t.is(toIsoDate(getEaster(2032)), '2032-03-28');
-	t.is(toIsoDate(getEaster(2033)), '2033-04-17');
+	t.is(getEaster(2024).toLocaleDateString('cs-CZ'), '31. 3. 2024');
+	t.is(getEaster(2025).toLocaleDateString('cs-CZ'), '20. 4. 2025');
+	t.is(getEaster(2026).toLocaleDateString('cs-CZ'), '5. 4. 2026');
+	t.is(getEaster(2027).toLocaleDateString('cs-CZ'), '28. 3. 2027');
+	t.is(getEaster(2028).toLocaleDateString('cs-CZ'), '16. 4. 2028');
+	t.is(getEaster(2029).toLocaleDateString('cs-CZ'), '1. 4. 2029');
+	t.is(getEaster(2030).toLocaleDateString('cs-CZ'), '21. 4. 2030');
+	t.is(getEaster(2031).toLocaleDateString('cs-CZ'), '13. 4. 2031');
+	t.is(getEaster(2032).toLocaleDateString('cs-CZ'), '28. 3. 2032');
+	t.is(getEaster(2033).toLocaleDateString('cs-CZ'), '17. 4. 2033');
 });
 
 test('Easter date for 100 years', t => {
 	// 2105 and above
-	t.is(toIsoDate(getEaster(2105)), '2105-04-05');
-	t.is(toIsoDate(getEaster(2106)), '2106-04-18');
+	t.is(getEaster(2105).toLocaleDateString('cs-CZ'), '5. 4. 2105');
+	t.is(getEaster(2106).toLocaleDateString('cs-CZ'), '18. 4. 2106');
 
 	// 2200 and above
-	t.is(toIsoDate(getEaster(2225)), '2225-03-27');
-	t.is(toIsoDate(getEaster(2299)), '2299-04-16');
+	t.is(getEaster(2225).toLocaleDateString('cs-CZ'), '27. 3. 2225');
+	t.is(getEaster(2199).toLocaleDateString('cs-CZ'), '14. 4. 2199');
 });
 
 test('Easter in 2024', t => {
