@@ -8,19 +8,63 @@
 
 Simple library for calculating Easter date from a given year.
 
-## Install
+## Install package
 
 ```bash
 npm i easter-date
 ```
 
+or
+
+```bash
+yarn add easter-date
+```
+
 ## Functions
+
+Functions are expecting a year as a parameter and return a `Date` object.
+
+### Get Easter date
+
+Function `getEaster` returns Easter date for a given year:
 
 ```javascript
 import {getEaster} from 'easter-date';
 
-getEaster(2024).toISODate(); // 2024-03-31
+getEaster(2024).toLocaleDateString('en-US'); // return 31/03/2024
+```
 
+### Get Good Friday
+
+Function `getGoodFriday` returns Good Friday date for a given year:
+
+```javascript
+import {getGoodFriday} from 'easter-date';
+
+getGoodFriday(2024).toLocaleDateString('en-US'); // return 29/03/2024
+```
+
+### Get Easter Monday
+
+Function `getEasterMonday` returns Easter Monday date for a given year:
+
+```javascript
+import {getEasterMonday} from 'easter-date';
+
+getEasterMonday(2024).toLocaleDateString('en-US'); // return 01/04/2024
+```
+
+### Get Holy Week object
+
+Function `getHolyWeek` returns an object of Holy Week dates for a given year:
+
+```javascript
+import {getHolyWeek} from 'easter-date';
+
+const holyWeek = getHolyWeek(2024);
+
+holyWeek.palmSunday.name; // return Palm Sunday
+holyWeek.palmSunday.date.toLocaleDateString('en-US'); // return 24/03/2024
 ```
 
 ## License
