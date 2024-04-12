@@ -1,5 +1,6 @@
 import test from 'ava';
-import {fromIsoDate, getEaster, ieEaster,} from '../lib/index.js';
+import {getEaster, ieEaster} from '../lib/index.js';
+import {fromIsoDate} from '../lib/date-fns.js';
 
 test('Easter date for 10 years', t => {
 	t.is(getEaster(2024).toLocaleDateString('cs-CZ'), '31. 3. 2024');

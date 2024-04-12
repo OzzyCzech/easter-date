@@ -1,5 +1,3 @@
-import {isSameDay} from './date-fns.js';
-
 /**
  * Returns the date of Easter for a given year.
  * Function is an alias for getEasterSunday() function
@@ -25,6 +23,14 @@ export function getEaster(year: number): Date {
 }
 
 /**
+ * Returns true if the given date is Easter Sunday.
+ * @param date
+ */
+export function ieEaster(date: Date): boolean {
+	return date.getTime() === getEaster(date.getFullYear()).getTime();
+}
+
+/**
  * Returns the date of Easter for a given year.
  * @param year
  */
@@ -37,13 +43,5 @@ export function getEasterSunday(year: number): Date {
  * @param date
  */
 export function isEasterSunday(date: Date): boolean {
-	return isSameDay(date, getEasterSunday(date.getFullYear()));
-}
-
-/**
- * Returns true if the given date is Easter Sunday.
- * @param date
- */
-export function ieEaster(date: Date): boolean {
-	return isEasterSunday(date);
+	return ieEaster(date);
 }

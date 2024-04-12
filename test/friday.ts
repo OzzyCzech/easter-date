@@ -1,5 +1,6 @@
 import test from 'ava';
-import {fromIsoDate, getGoodFriday, isGoodFriday, toIsoDate,} from '../lib/index.js';
+import {getGoodFriday, isGoodFriday} from '../lib/index.js';
+import {fromIsoDate, toIsoDate} from '../lib/date-fns.js';
 
 test('Good Friday date for 10 years', t => {
 	t.is(toIsoDate(getGoodFriday(2024)), '2024-03-29');

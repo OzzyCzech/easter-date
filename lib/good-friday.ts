@@ -1,5 +1,4 @@
 import {getEaster} from './easter-sunday.js';
-import {isSameDay} from './date-fns.js';
 
 /**
  * Returns the date of Good Friday for a given year.
@@ -16,5 +15,5 @@ export function getGoodFriday(year: number): Date {
  * @param date
  */
 export function isGoodFriday(date: Date): boolean {
-	return isSameDay(date, getGoodFriday(date.getFullYear()));
+	return date.getTime() === getGoodFriday(date.getFullYear()).getTime();
 }

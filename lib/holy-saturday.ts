@@ -1,5 +1,4 @@
 import {getEaster} from './easter-sunday.js';
-import {isSameDay} from './date-fns.js';
 
 /**
  * Returns the date of Holy Saturday for a given year.
@@ -16,5 +15,5 @@ export function getHolySaturday(year: number): Date {
  * @param date
  */
 export function isHolySaturday(date: Date): boolean {
-	return isSameDay(date, getHolySaturday(date.getFullYear()));
+	return date.getTime() === getHolySaturday(date.getFullYear()).getTime();
 }

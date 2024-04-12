@@ -40,7 +40,8 @@
       "ts": "module"
     },
     "files": [
-      "test/*"
+      "test/*",
+      "!test/date-fns.ts"
     ],
     "workerThreads": false
   }

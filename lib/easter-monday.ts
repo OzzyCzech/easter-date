@@ -1,5 +1,4 @@
 import {getEaster} from './easter-sunday.js';
-import {isSameDay} from './date-fns.js';
 
 /**
  * Returns the date of Easter Monday for a given year.
@@ -16,5 +15,5 @@ export function getEasterMonday(year: number): Date {
  * @param date
  */
 export function isEasterMonday(date: Date): boolean {
-	return isSameDay(date, getEasterMonday(date.getFullYear()));
+	return date.getTime() === getEasterMonday(date.getFullYear()).getTime();
 }

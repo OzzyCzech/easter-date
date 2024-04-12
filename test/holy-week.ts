@@ -1,5 +1,6 @@
 import test from 'ava';
-import {getHolyWeek, toIsoDate} from '../lib/index.js';
+import {getHolyWeek} from '../lib/index.js';
+import {toIsoDate} from '../lib/date-fns.js';
 
 test('Holy Week in 2024', t => {
 	const holyWeek = getHolyWeek(2024);

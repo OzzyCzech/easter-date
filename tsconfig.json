@@ -31,5 +31,10 @@
   },
   "include": [
     "lib/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib/date-fns.ts",
+    "dist"
   ]
 }

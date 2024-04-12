@@ -23,12 +23,3 @@ export function fromIsoDate(isoDate: string): Date {
 
 	return new Date(year, month - 1, day);
 }
-
-/**
- * Returns true if the two dates are the same day.
- * @param date1
- * @param date2
- */
-export function isSameDay(date1: Date, date2: Date): boolean {
-	return toIsoDate(date1) === toIsoDate(date2);
-}

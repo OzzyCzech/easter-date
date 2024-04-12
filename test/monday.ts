@@ -1,7 +1,6 @@
 import test from 'ava';
-import {
-	fromIsoDate, getEasterMonday, isEasterMonday, toIsoDate,
-} from '../lib/index.js';
+import {getEasterMonday, isEasterMonday} from '../lib/index.js';
+import {fromIsoDate, toIsoDate} from '../lib/date-fns.js';
 
 test('Easter monday date for 10 years', t => {
 	t.is(toIsoDate(getEasterMonday(2024)), '2024-04-01');

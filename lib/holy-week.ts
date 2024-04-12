@@ -1,15 +1,15 @@
 import {getEaster} from './easter-sunday.js';
 
 type HolyWeek = {
-	palmSunday: { name: string; date: Date; };
-	holyMonday: { name: string; date: Date; };
-	holyTuesday: { name: string; date: Date; };
-	holyWednesday: { name: string; date: Date; };
-	maundyThursday: { name: string; date: Date; };
-	goodFriday: { name: string; date: Date; };
-	holySaturday: { name: string; date: Date; };
-	easterSunday: { name: string; date: Date; };
-	easterMonday: { name: string; date: Date; };
+	palmSunday: {name: string; date: Date};
+	holyMonday: {name: string; date: Date};
+	holyTuesday: {name: string; date: Date};
+	holyWednesday: {name: string; date: Date};
+	maundyThursday: {name: string; date: Date};
+	goodFriday: {name: string; date: Date};
+	holySaturday: {name: string; date: Date};
+	easterSunday: {name: string; date: Date};
+	easterMonday: {name: string; date: Date};
 };
 
 /**
