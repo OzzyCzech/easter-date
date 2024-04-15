@@ -15,5 +15,8 @@ export function getHolySaturday(year: number): Date {
  * @param date
  */
 export function isHolySaturday(date: Date): boolean {
-	return date.getTime() === getHolySaturday(date.getFullYear()).getTime();
+	const holySaturday = getHolySaturday(date.getFullYear());
+	return date.getFullYear() === holySaturday.getFullYear()
+		&& date.getMonth() === holySaturday.getMonth()
+		&& date.getDate() === holySaturday.getDate();
 }

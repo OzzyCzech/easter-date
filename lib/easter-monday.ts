@@ -15,5 +15,8 @@ export function getEasterMonday(year: number): Date {
  * @param date
  */
 export function isEasterMonday(date: Date): boolean {
-	return date.getTime() === getEasterMonday(date.getFullYear()).getTime();
+	const easterMonday = getEasterMonday(date.getFullYear());
+	return date.getFullYear() === easterMonday.getFullYear()
+		&& date.getMonth() === easterMonday.getMonth()
+		&& date.getDate() === easterMonday.getDate();
 }

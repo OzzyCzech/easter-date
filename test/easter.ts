@@ -1,5 +1,5 @@
 import test from 'ava';
-import {getEaster, ieEaster} from '../lib/index.js';
+import {getEaster, isEaster} from '../lib/index.js';
 import {fromIsoDate} from '../lib/date-fns.js';
 
 test('Easter date for 10 years', t => {
@@ -26,5 +26,5 @@ test('Easter date for 100 years', t => {
 });
 
 test('Easter in 2024', t => {
-	t.true(ieEaster(fromIsoDate('2024-03-31')));
+	t.true(isEaster(fromIsoDate('2024-03-31')));
 });

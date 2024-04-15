@@ -15,5 +15,8 @@ export function getGoodFriday(year: number): Date {
  * @param date
  */
 export function isGoodFriday(date: Date): boolean {
-	return date.getTime() === getGoodFriday(date.getFullYear()).getTime();
+	const goodFriday = getGoodFriday(date.getFullYear());
+	return date.getFullYear() === goodFriday.getFullYear()
+		&& date.getMonth() === goodFriday.getMonth()
+		&& date.getDate() === goodFriday.getDate();
 }

@@ -26,8 +26,11 @@ export function getEaster(year: number): Date {
  * Returns true if the given date is Easter Sunday.
  * @param date
  */
-export function ieEaster(date: Date): boolean {
-	return date.getTime() === getEaster(date.getFullYear()).getTime();
+export function isEaster(date: Date): boolean {
+	const easter = getEaster(date.getFullYear());
+	return date.getFullYear() === easter.getFullYear()
+		&& date.getMonth() === easter.getMonth()
+		&& date.getDate() === easter.getDate();
 }
 
 /**
@@ -43,5 +46,5 @@ export function getEasterSunday(year: number): Date {
  * @param date
  */
 export function isEasterSunday(date: Date): boolean {
-	return ieEaster(date);
+	return isEaster(date);
 }
