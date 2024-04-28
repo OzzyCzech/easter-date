@@ -17,11 +17,11 @@
     "default": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
-    "ava": "NODE_OPTIONS='--import=tsx/esm' ava",
-    "xo": "xo",
+    "build": "rm -rf dist && tsc",
     "release": "np --no-release-draft",
-    "test": "xo && tsc --noEmit && NODE_OPTIONS='--import=tsx/esm' ava"
+    "prepare": "npm run build",
+    "test": "xo && tsc --noEmit && NODE_OPTIONS='--import=tsx/esm' ava",
+    "ava": "NODE_OPTIONS='--import=tsx/esm' ava"
   },
   "engines": {
     "node": ">=20"
