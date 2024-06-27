@@ -75,4 +75,4 @@ holyWeek.palmSunday.date.toLocaleDateString('en-US'); // return 24/03/2024
 
 ## License
 
-MIT
+[MIT](./LICENSE)
