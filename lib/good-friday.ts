@@ -1,4 +1,4 @@
-import {getEaster} from './easter-sunday.js';
+import { getEaster } from "./easter-sunday.js";
 
 /**
  * Returns the date of Good Friday for a given year.
@@ -16,7 +16,9 @@ export function getGoodFriday(year: number): Date {
  */
 export function isGoodFriday(date: Date): boolean {
 	const goodFriday = getGoodFriday(date.getFullYear());
-	return date.getFullYear() === goodFriday.getFullYear()
-		&& date.getMonth() === goodFriday.getMonth()
-		&& date.getDate() === goodFriday.getDate();
+	return (
+		date.getFullYear() === goodFriday.getFullYear() &&
+		date.getMonth() === goodFriday.getMonth() &&
+		date.getDate() === goodFriday.getDate()
+	);
 }

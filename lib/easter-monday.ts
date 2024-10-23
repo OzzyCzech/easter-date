@@ -1,4 +1,4 @@
-import {getEaster} from './easter-sunday.js';
+import { getEaster } from "./easter-sunday.js";
 
 /**
  * Returns the date of Easter Monday for a given year.
@@ -16,7 +16,9 @@ export function getEasterMonday(year: number): Date {
  */
 export function isEasterMonday(date: Date): boolean {
 	const easterMonday = getEasterMonday(date.getFullYear());
-	return date.getFullYear() === easterMonday.getFullYear()
-		&& date.getMonth() === easterMonday.getMonth()
-		&& date.getDate() === easterMonday.getDate();
+	return (
+		date.getFullYear() === easterMonday.getFullYear() &&
+		date.getMonth() === easterMonday.getMonth() &&
+		date.getDate() === easterMonday.getDate()
+	);
 }

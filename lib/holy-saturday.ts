@@ -1,4 +1,4 @@
-import {getEaster} from './easter-sunday.js';
+import { getEaster } from "./easter-sunday.js";
 
 /**
  * Returns the date of Holy Saturday for a given year.
@@ -16,7 +16,9 @@ export function getHolySaturday(year: number): Date {
  */
 export function isHolySaturday(date: Date): boolean {
 	const holySaturday = getHolySaturday(date.getFullYear());
-	return date.getFullYear() === holySaturday.getFullYear()
-		&& date.getMonth() === holySaturday.getMonth()
-		&& date.getDate() === holySaturday.getDate();
+	return (
+		date.getFullYear() === holySaturday.getFullYear() &&
+		date.getMonth() === holySaturday.getMonth() &&
+		date.getDate() === holySaturday.getDate()
+	);
 }

@@ -10,13 +10,13 @@ Simple library that calculates the date of Easter for a given year and other Eas
 
 ## Install package
 
-```bash
+```shell
 npm i easter-date
 ```
 
 or
 
-```bash
+```shell
 yarn add easter-date
 ```
 
@@ -65,6 +65,16 @@ const holyWeek = getHolyWeek(2024);
 
 holyWeek.palmSunday.name; // return Palm Sunday
 holyWeek.palmSunday.date.toLocaleDateString('en-US'); // return 24/03/2024
+```
+
+## Running Tests
+  
+```shell
+npm run test
+```
+
+```shell
+
 ```
 
 ## Credits

@@ -1,15 +1,15 @@
-import {getEaster} from './easter-sunday.js';
+import { getEaster } from "./easter-sunday.js";
 
 type HolyWeek = {
-	palmSunday: {name: string; date: Date};
-	holyMonday: {name: string; date: Date};
-	holyTuesday: {name: string; date: Date};
-	holyWednesday: {name: string; date: Date};
-	maundyThursday: {name: string; date: Date};
-	goodFriday: {name: string; date: Date};
-	holySaturday: {name: string; date: Date};
-	easterSunday: {name: string; date: Date};
-	easterMonday: {name: string; date: Date};
+	palmSunday: { name: string; date: Date };
+	holyMonday: { name: string; date: Date };
+	holyTuesday: { name: string; date: Date };
+	holyWednesday: { name: string; date: Date };
+	maundyThursday: { name: string; date: Date };
+	goodFriday: { name: string; date: Date };
+	holySaturday: { name: string; date: Date };
+	easterSunday: { name: string; date: Date };
+	easterMonday: { name: string; date: Date };
 };
 
 /**
@@ -28,39 +28,39 @@ export function getHolyWeek(year: number): HolyWeek {
 
 	return {
 		palmSunday: {
-			name: 'Palm Sunday',
+			name: "Palm Sunday",
 			date: addDays(easterDate, -7),
 		},
 		holyMonday: {
-			name: 'Holy Monday',
+			name: "Holy Monday",
 			date: addDays(easterDate, -6),
 		},
 		holyTuesday: {
-			name: 'Holy Tuesday',
+			name: "Holy Tuesday",
 			date: addDays(easterDate, -5),
 		},
 		holyWednesday: {
-			name: 'Holy Wednesday',
+			name: "Holy Wednesday",
 			date: addDays(easterDate, -4),
 		},
 		maundyThursday: {
-			name: 'Maundy Thursday',
+			name: "Maundy Thursday",
 			date: addDays(easterDate, -3),
 		},
 		goodFriday: {
-			name: 'Good Friday',
+			name: "Good Friday",
 			date: addDays(easterDate, -2),
 		},
 		holySaturday: {
-			name: 'Holy Saturday',
+			name: "Holy Saturday",
 			date: addDays(easterDate, -1),
 		},
 		easterSunday: {
-			name: 'Easter Sunday',
+			name: "Easter Sunday",
 			date: easterDate,
 		},
 		easterMonday: {
-			name: 'Easter Monday',
+			name: "Easter Monday",
 			date: addDays(easterDate, 1),
 		},
 	};
