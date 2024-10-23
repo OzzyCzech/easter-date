@@ -6,7 +6,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/OzzyCzech/easter-date?style=for-the-badge)](https://github.com/OzzyCzech/easter-date/commits/main)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/OzzyCzech/easter-date/main.yml?style=for-the-badge)](https://github.com/OzzyCzech/easter-date/actions)
 
-Simple library for calculating Easter date from a given year.
+Simple library that calculates the date of Easter for a given year and other Easter days.
 
 ## Install package
 
@@ -29,7 +29,7 @@ Functions are expecting a year as a parameter and return a `Date` object.
 Function `getEaster` returns Easter date for a given year:
 
 ```javascript
-import {getEaster} from 'easter-date';
+import { getEaster } from 'easter-date';
 
 getEaster(2024).toLocaleDateString('en-US'); // return 31/03/2024
 ```
@@ -39,7 +39,7 @@ getEaster(2024).toLocaleDateString('en-US'); // return 31/03/2024
 Function `getGoodFriday` returns Good Friday date for a given year:
 
 ```javascript
-import {getGoodFriday} from 'easter-date';
+import { getGoodFriday } from 'easter-date';
 
 getGoodFriday(2024).toLocaleDateString('en-US'); // return 29/03/2024
 ```
@@ -49,7 +49,7 @@ getGoodFriday(2024).toLocaleDateString('en-US'); // return 29/03/2024
 Function `getEasterMonday` returns Easter Monday date for a given year:
 
 ```javascript
-import {getEasterMonday} from 'easter-date';
+import { getEasterMonday } from 'easter-date';
 
 getEasterMonday(2024).toLocaleDateString('en-US'); // return 01/04/2024
 ```
@@ -59,7 +59,7 @@ getEasterMonday(2024).toLocaleDateString('en-US'); // return 01/04/2024
 Function `getHolyWeek` returns an object of Holy Week dates for a given year:
 
 ```javascript
-import {getHolyWeek} from 'easter-date';
+import { getHolyWeek } from 'easter-date';
 
 const holyWeek = getHolyWeek(2024);
 
