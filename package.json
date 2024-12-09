@@ -1,11 +1,16 @@
 {
 	"name": "easter-date",
-	"version": "0.0.19",
+	"version": "0.0.20",
 	"author": "Roman Ožana <roman@ozana.cz> (https://ozana.cz)",
 	"repository": "OzzyCzech/easter-date",
 	"license": "MIT",
 	"description": "Calculate the date of Easter for a given year",
-	"keywords": ["easter", "date", "calendar", "holly week"],
+	"keywords": [
+		"easter",
+		"date",
+		"calendar",
+		"holly week"
+	],
 	"type": "module",
 	"exports": {
 		"types": "./dist/index.d.ts",
@@ -25,7 +30,9 @@
 	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/node": "^22.10.1",
@@ -38,7 +45,10 @@
 		"extensions": {
 			"ts": "module"
 		},
-		"files": ["test/*", "!test/date-fns.ts"],
+		"files": [
+			"test/*",
+			"!test/date-fns.ts"
+		],
 		"workerThreads": false
 	}
 }
