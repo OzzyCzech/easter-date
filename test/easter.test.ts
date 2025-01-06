@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { getEaster, isEaster } from "../lib";
 import { fromIsoDate } from "../lib/date-fns.js";
 
