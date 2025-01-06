@@ -5,12 +5,7 @@
 	"repository": "OzzyCzech/easter-date",
 	"license": "MIT",
 	"description": "Calculate the date of Easter for a given year",
-	"keywords": [
-		"easter",
-		"date",
-		"calendar",
-		"holly week"
-	],
+	"keywords": ["easter", "date", "calendar", "holly week"],
 	"type": "module",
 	"exports": {
 		"types": "./dist/index.d.ts",
@@ -20,8 +15,7 @@
 		"build": "rm -rf dist && tsc",
 		"release": "npx np",
 		"prepare": "npm run build",
-		"test": "tsc --noEmit && NODE_OPTIONS='--import=tsx/esm' ava",
-		"ava": "NODE_OPTIONS='--import=tsx/esm' ava",
+		"test": "tsc --noEmit && vitest",
 		"format": "biome format --write",
 		"lint": "biome lint"
 	},
@@ -30,25 +24,13 @@
 	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/node": "^22.10.1",
-		"ava": "^6.2.0",
 		"np": "^10.1.0",
 		"tsx": "^4.19.2",
-		"typescript": "^5.7.2"
-	},
-	"ava": {
-		"extensions": {
-			"ts": "module"
-		},
-		"files": [
-			"test/*",
-			"!test/date-fns.ts"
-		],
-		"workerThreads": false
+		"typescript": "^5.7.2",
+		"vitest": "^2.1.8"
 	}
 }
