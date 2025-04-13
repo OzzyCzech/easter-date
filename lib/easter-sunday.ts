@@ -19,7 +19,7 @@ export function getEaster(year: number): Date {
 	const month = Math.floor((h + l - 7 * m + 114) / 31);
 	const day = ((h + l - 7 * m + 114) % 31) + 1;
 
-	return new Date(year, month - 1, day);
+	return new Date(Date.UTC(year, month - 1, day));
 }
 
 /**

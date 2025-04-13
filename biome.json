@@ -6,8 +6,7 @@
 		"useIgnoreFile": false
 	},
 	"files": {
-		"ignoreUnknown": false,
-		"include": ["lib/**/*.*", "test/**/*.*", "package.json"]
+		"ignore": ["dist/**/*.*", "package.json"]
 	},
 	"formatter": {
 		"enabled": true,
