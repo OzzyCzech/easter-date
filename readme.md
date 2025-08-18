@@ -73,10 +73,6 @@ holyWeek.palmSunday.date.toLocaleDateString('en-US'); // return 24/03/2024
 npm run test
 ```
 
-```shell
-
-```
-
 ## Credits
 
 - [Easter dates calculation](https://github.com/paulzag/ZagZ-iCalendars) for the Easter dates
