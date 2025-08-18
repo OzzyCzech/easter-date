@@ -82,3 +82,7 @@ npm run test
 ## License
 
 [MIT](./LICENSE)
+
+--- 
+
+Made with ❤️ by the [Roman Ožana](https://ozana.cz)    
