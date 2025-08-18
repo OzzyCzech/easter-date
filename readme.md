@@ -83,6 +83,4 @@ npm run test
 
 [MIT](./LICENSE)
 
---- 
-
-<p align="center">Made with ❤️ by the [Roman Ožana](https://ozana.cz)</p>    
+Made with ❤️ by the [Roman Ožana](https://ozana.cz)    
