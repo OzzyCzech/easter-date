@@ -85,4 +85,4 @@ npm run test
 
 --- 
 
-Made with ❤️ by the [Roman Ožana](https://ozana.cz)    
+<p align="center">Made with ❤️ by the [Roman Ožana](https://ozana.cz)</p>    
