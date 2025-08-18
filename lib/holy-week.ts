@@ -1,6 +1,6 @@
 import { getEaster } from "./easter-sunday.js";
 
-type HolyWeek = {
+export type HolyWeek = {
 	palmSunday: { name: string; date: Date };
 	holyMonday: { name: string; date: Date };
 	holyTuesday: { name: string; date: Date };
