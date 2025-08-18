@@ -1,6 +1,13 @@
 /**
  * Returns the date of Easter for a given year.
  * Function is an alias for getEasterSunday() function
+ *
+ * @example Get Easter date for a given year
+ * ```ts
+ * import { getEaster } from "easter-date";
+ * const easter = getEaster(2023);
+ * console.log(easter); // 2023-04-09T00:00
+ * ```
  * @param year
  */
 export function getEaster(year: number): Date {

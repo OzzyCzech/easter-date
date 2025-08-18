@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getHolySaturday, isHolySaturday } from "../lib";
-import { fromIsoDate, toIsoDate } from "../lib/date-fns.js";
+import { fromIsoDate, toIsoDate } from "./date-fns.js";
 
 describe("Holy Saturday date tests", () => {
 	it("Get Holy Saturday for 10 years", () => {

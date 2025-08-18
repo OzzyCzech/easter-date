@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getHolyWeek } from "../lib";
-import { toIsoDate } from "../lib/date-fns.js";
+import { toIsoDate } from "./date-fns.js";
 
 describe("Holy Week in 2024", () => {
 	it("should return correct dates", () => {
