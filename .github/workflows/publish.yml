@@ -1,0 +1,53 @@
+name: Publish to npm & Create Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write      # pro vytvoření GitHub Release
+      id-token: write      # POVINNÉ pro OIDC trusted publishing
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0   # pro git log v changelog kroku
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"   # POVINNÉ i když je default
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile --ignore-engines
+      - run: yarn test
+      - run: yarn build
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -n "$PREV_TAG" ]; then
+            CHANGES=$(git log ${PREV_TAG}..HEAD --pretty=format:"- %s" --no-merges)
+          else
+            CHANGES=$(git log --pretty=format:"- %s" --no-merges)
+          fi
+          echo "changes<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.changes }}
