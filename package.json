@@ -29,7 +29,7 @@
 		"docs": "typedoc"
 	},
 	"engines": {
-		"node": ">=20"
+		"node": ">=22"
 	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
@@ -37,13 +37,13 @@
 		"dist"
 	],
 	"devDependencies": {
-		"@biomejs/biome": "2.4.6",
-		"@ozzyczech/tsconfig": "^1.0.0",
-		"@types/node": "^25.6.0",
-		"np": "^11.0.3",
-		"tsx": "^4.21.0",
-		"typedoc": "^0.28.18",
-		"typescript": "^6.0.2",
-		"vitest": "^4.1.4"
+		"@biomejs/biome": "^2.4.16",
+		"@ozzyczech/tsconfig": "^2.1.0",
+		"@types/node": "^25.9.3",
+		"np": "^11.2.1",
+		"tsx": "^4.22.4",
+		"typedoc": "^0.28.19",
+		"typescript": "^6.0.3",
+		"vitest": "^4.1.8"
 	}
 }
