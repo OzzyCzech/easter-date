@@ -19,22 +19,17 @@ jobs:
         with:
           fetch-depth: 0 # pro git log v changelog kroku
 
-      # Bez registry-url: setup-node v7 zapisuje .npmrc do pracovního adresáře
-      # a yarn 1 neumí rozbalit ${NODE_AUTH_TOKEN} -> "Failed to replace env in config".
-      - uses: actions/setup-node@v7
-        with:
-          node-version: "24"
-          cache: yarn
+      - uses: pnpm/action-setup@v6
 
-      - run: yarn install --frozen-lockfile --ignore-engines
-      - run: yarn test
-      - run: yarn build
-
-      # Až tady .npmrc vzniká - pro OIDC trusted publishing, yarn už neběží.
       - uses: actions/setup-node@v7
         with:
           node-version: "24"
           registry-url: "https://registry.npmjs.org" # POVINNÉ i když je default
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
+      - run: pnpm test
 
       - name: Publish to npm
         run: npm publish --provenance --access public
