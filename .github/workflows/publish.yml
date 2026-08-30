@@ -12,17 +12,17 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
-      contents: write      # pro vytvoření GitHub Release
-      id-token: write      # POVINNÉ pro OIDC trusted publishing
+      contents: write # pro vytvoření GitHub Release
+      id-token: write # POVINNÉ pro OIDC trusted publishing
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
-          fetch-depth: 0   # pro git log v changelog kroku
+          fetch-depth: 0 # pro git log v changelog kroku
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: "24"
-          registry-url: "https://registry.npmjs.org"   # POVINNÉ i když je default
+          registry-url: "https://registry.npmjs.org" # POVINNÉ i když je default
           cache: yarn
 
       - run: yarn install --frozen-lockfile --ignore-engines
