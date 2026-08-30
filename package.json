@@ -21,7 +21,6 @@
 	},
 	"scripts": {
 		"build": "rm -rf dist && tsc",
-		"release": "npx np",
 		"prepare": "pnpm run build",
 		"test": "tsc --noEmit && vitest",
 		"format": "biome check --write .",
@@ -41,7 +40,6 @@
 		"@biomejs/biome": "^2.5.11",
 		"@ozzyczech/tsconfig": "^2.1.0",
 		"@types/node": "^26.4.0",
-		"np": "^12.0.1",
 		"tsx": "^4.23.13",
 		"typedoc": "^0.28.20",
 		"typescript": "^6.0.3",
