@@ -45,6 +45,8 @@ export function getEasterMonday(year: number): Date {
  * isEasterMonday({ year: 2023, month: 4, day: 10 }); // true
  * ```
  * @param date
+ * @throws {TypeError} if `date` is neither a valid `Date` nor an object with
+ * integer `year`, `month` and `day`.
  */
 export function isEasterMonday(date: Date | PlainDateLike): boolean {
 	return isEasterDay(date, 1);

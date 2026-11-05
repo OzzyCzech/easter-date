@@ -55,6 +55,8 @@ export function getEaster(year: number): Date {
  * isEaster(Temporal.PlainDate.from("2024-03-31")); // true
  * ```
  * @param date
+ * @throws {TypeError} if `date` is neither a valid `Date` nor an object with
+ * integer `year`, `month` and `day`.
  */
 export function isEaster(date: Date | PlainDateLike): boolean {
 	return isEasterDay(date, 0);
@@ -73,6 +75,8 @@ export function getEasterSunday(year: number): Date {
  * Returns true if the given date is Easter Sunday. Alias for
  * {@link isEaster}.
  * @param date
+ * @throws {TypeError} if `date` is neither a valid `Date` nor an object with
+ * integer `year`, `month` and `day`.
  */
 export function isEasterSunday(date: Date | PlainDateLike): boolean {
 	return isEaster(date);

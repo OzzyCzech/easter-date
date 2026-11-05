@@ -6,6 +6,7 @@ import {
 	isEasterSunday,
 	isGoodFriday,
 	isHolySaturday,
+	type PlainDateLike,
 } from "../lib";
 import { Temporal, type TemporalApi } from "./date-fns.js";
 
@@ -19,6 +20,47 @@ describe("is*() with a Date", () => {
 		expect(
 			isEasterMonday(runInNewContext("new Date(2024, 3, 1)") as Date),
 		).toBe(true);
+	});
+});
+
+describe("is*() with invalid input", () => {
+	const isFunctions = [
+		isEaster,
+		isEasterSunday,
+		isGoodFriday,
+		isHolySaturday,
+		isEasterMonday,
+	];
+
+	// What a JavaScript caller might pass by mistake.
+	const invalid: [string, unknown][] = [
+		["an ISO string", "2024-03-31"],
+		["a JSON-revived Date", JSON.parse(JSON.stringify(new Date(2024, 2, 31)))],
+		["a timestamp", new Date(2024, 2, 31).getTime()],
+		["an invalid Date", new Date("not a date")],
+		["null", null],
+		["undefined", undefined],
+		["an empty object", {}],
+		["a missing day", { year: 2024, month: 3 }],
+		["a string field", { year: "2024", month: 3, day: 31 }],
+		["a fractional day", { year: 2024, month: 3, day: 31.5 }],
+		// dayjs and moment have year(), month() and date() methods.
+		[
+			"a dayjs-like object",
+			{ year: () => 2024, month: () => 2, date: () => 31 },
+		],
+	];
+
+	it.each(invalid)("throw a TypeError for %s", (_, input) => {
+		for (const is of isFunctions) {
+			expect(() => is(input as PlainDateLike)).toThrow(TypeError);
+		}
+	});
+
+	it("say what they expect", () => {
+		expect(() => isEaster("2024-03-31" as unknown as Date)).toThrow(
+			"Expected a valid Date or a { year, month, day } object with integer fields",
+		);
 	});
 });
 

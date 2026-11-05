@@ -1,10 +1,12 @@
 /**
- * A calendar date without a time or a time zone. `month` is 1-based
- * (1 = January), as in `Temporal.PlainDate`.
+ * A calendar date without a time or a time zone, in the ISO (Gregorian)
+ * calendar. The fields are integers and `month` is 1-based (1 = January), as
+ * in `Temporal.PlainDate`.
  *
  * The `get*PlainDate()` functions return plain objects of this shape, which
  * `Temporal.PlainDate.from()` accepts. The `is*()` functions accept any object
- * with these fields, including a `Temporal.PlainDate` in the ISO calendar.
+ * with these fields. A Temporal object (`PlainDate`, `ZonedDateTime`, …) in
+ * another calendar is converted to the ISO calendar first.
  *
  * @example
  * ```ts
@@ -47,9 +49,27 @@ type WithCalendar = PlainDateLike & {
 
 /**
  * Reads the calendar day of an `is*()` argument: the local day of a `Date`,
- * or the fields of a {@link PlainDateLike}.
+ * or the ISO year, month and day of a {@link PlainDateLike}.
+ *
+ * @throws {TypeError} for anything else, including an invalid `Date`.
  */
 export function readCalendarDay(input: Date | PlainDateLike): PlainDateLike {
+	if (typeof input === "object" && input !== null) {
+		const { year, month, day } = calendarFields(input);
+		if (
+			Number.isInteger(year) &&
+			Number.isInteger(month) &&
+			Number.isInteger(day)
+		) {
+			return { year, month, day };
+		}
+	}
+	throw new TypeError(
+		"Expected a valid Date or a { year, month, day } object with integer fields",
+	);
+}
+
+function calendarFields(input: Date | PlainDateLike): PlainDateLike {
 	// Not instanceof: a Date from another realm (a vm context, an iframe) is
 	// not an instance of this realm's Date.
 	if (typeof (input as Date).getFullYear === "function") {

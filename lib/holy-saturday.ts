@@ -45,6 +45,8 @@ export function getHolySaturday(year: number): Date {
  * isHolySaturday({ year: 2024, month: 3, day: 30 }); // true
  * ```
  * @param date
+ * @throws {TypeError} if `date` is neither a valid `Date` nor an object with
+ * integer `year`, `month` and `day`.
  */
 export function isHolySaturday(date: Date | PlainDateLike): boolean {
 	return isEasterDay(date, -1);
