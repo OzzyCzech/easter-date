@@ -69,7 +69,11 @@ The type of these objects is exported as `PlainDateLike`.
 The `is*` functions accept a `Date` or a calendar date:
 
 - a `Date` is read as its **local** calendar day (`getFullYear()`, `getMonth()`, `getDate()`), in the time zone of the process,
-- a `{ year, month, day }` object, such as a `Temporal.PlainDate`, is compared by its fields, with no time zone involved.
+- a `{ year, month, day }` object is compared by its fields, with no time zone involved.
+  The fields are integers in the ISO (Gregorian) calendar, with a 1-based month.
+  A Temporal object, such as a `Temporal.PlainDate`, is converted to the ISO calendar first, so a Buddhist or Hebrew date works too.
+
+Anything else, such as a string, a timestamp or an invalid `Date`, throws a `TypeError`.
 
 ```javascript
 import { isEaster, isEasterMonday } from "easter-date";
@@ -83,8 +87,9 @@ isEaster(Temporal.PlainDate.from("2024-03-31")); // true
 isEasterMonday(Temporal.Now.plainDateISO("Europe/Prague"));
 ```
 
-A `Date` at midnight UTC, such as `new Date("2024-03-31")` or a result of `getEaster(2024)`, is still the previous day in time zones west of UTC.
-To check such a day, pass a calendar date: `isEaster(getEasterPlainDate(2024))` is `true` everywhere.
+**Do not pass a `get*` result back to `is*` west of UTC.**
+A `Date` at midnight UTC, such as `getEaster(2024)` or `new Date("2024-03-31")`, is still the previous day there, so `isEaster(getEaster(2024))` is `false` in New York.
+For a round trip, use the calendar dates: `isEaster(getEasterPlainDate(2024))` is `true` in every time zone.
 
 ### Get Holy Week
 
@@ -114,7 +119,13 @@ In time zones west of UTC:
 - a `Date` at midnight UTC, such as `new Date("2024-03-31")` or `getEaster(2024)`, is now read as the previous local day, so `isEaster(getEaster(2024))` is `false`.
   Pass a calendar date instead: `isEaster(getEasterPlainDate(2024))` or `isEaster({ year: 2024, month: 3, day: 31 })`.
 
-The `get*` functions still return the same `Date` at midnight UTC.
+An invalid `Date`, such as `new Date("not a date")`, now throws a `TypeError`; 2.x returned `false`.
+Strings, numbers and other objects without `getFullYear()` threw a `TypeError` in 2.x already.
+
+The `get*` functions still return the same `Date` at midnight UTC for every year from 100 on.
+For the years 0–99 they now return that year.
+2.x built the date with `Date.UTC()`, which maps these years to 1900–1999:
+`getEaster(50)` was `1950-03-27T00:00:00.000Z` and is now `0050-03-27T00:00:00.000Z`.
 
 ## Running Tests
 
