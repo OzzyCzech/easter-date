@@ -13,7 +13,7 @@ import { getEaster } from "./easter-sunday.js";
  */
 export function getEasterMonday(year: number): Date {
 	const date = getEaster(year);
-	date.setDate(date.getDate() + 1);
+	date.setUTCDate(date.getUTCDate() + 1);
 	return date;
 }
 

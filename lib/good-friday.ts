@@ -6,7 +6,7 @@ import { getEaster } from "./easter-sunday.js";
  */
 export function getGoodFriday(year: number): Date {
 	const date = getEaster(year);
-	date.setDate(date.getDate() - 2);
+	date.setUTCDate(date.getUTCDate() - 2);
 	return date;
 }
 

@@ -22,7 +22,7 @@ export function getHolyWeek(year: number): HolyWeek {
 
 	const addDays = (date: Date, days: number) => {
 		const newDate = new Date(date);
-		newDate.setDate(newDate.getDate() + days);
+		newDate.setUTCDate(newDate.getUTCDate() + days);
 		return newDate;
 	};
 
