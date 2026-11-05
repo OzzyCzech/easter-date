@@ -1,5 +1,5 @@
-import { getEasterPlainDate } from "./easter-sunday.js";
-import { addDays, isDay, type PlainDateLike, toDate } from "./plain-date.js";
+import { easterDay, isEasterDay } from "./computus.js";
+import { type PlainDateLike, toPlainDate } from "./plain-date.js";
 
 /**
  * Returns the calendar date of Good Friday for a given year, without a time
@@ -13,7 +13,7 @@ import { addDays, isDay, type PlainDateLike, toDate } from "./plain-date.js";
  * @param year
  */
 export function getGoodFridayPlainDate(year: number): PlainDateLike {
-	return addDays(getEasterPlainDate(year), -2);
+	return toPlainDate(getGoodFriday(year));
 }
 
 /**
@@ -29,7 +29,7 @@ export function getGoodFridayPlainDate(year: number): PlainDateLike {
  * @param year
  */
 export function getGoodFriday(year: number): Date {
-	return toDate(getGoodFridayPlainDate(year));
+	return easterDay(year, -2);
 }
 
 /**
@@ -47,5 +47,5 @@ export function getGoodFriday(year: number): Date {
  * @param date
  */
 export function isGoodFriday(date: Date | PlainDateLike): boolean {
-	return isDay(date, getGoodFridayPlainDate);
+	return isEasterDay(date, -2);
 }

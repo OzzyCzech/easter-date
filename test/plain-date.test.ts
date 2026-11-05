@@ -12,6 +12,7 @@ import {
 	isEaster,
 	type PlainDateLike,
 } from "../lib";
+import { utcMidnight } from "../lib/plain-date.js";
 import {
 	addDays,
 	plainToIso,
@@ -97,6 +98,20 @@ describe("get*PlainDate()", () => {
 		expect(mismatches).toEqual([]);
 	});
 
+	it("return numbers for a year passed as a string from JavaScript", () => {
+		const year = "2024" as unknown as number;
+		expect(getEasterPlainDate(year)).toStrictEqual({
+			year: 2024,
+			month: 3,
+			day: 31,
+		});
+		expect(getEasterMondayPlainDate(year)).toStrictEqual({
+			year: 2024,
+			month: 4,
+			day: 1,
+		});
+	});
+
 	it("return a new object on every call", () => {
 		const easter = getEasterPlainDate(2024);
 		easter.day = 1;
@@ -127,6 +142,16 @@ describe("years 0–99", () => {
 			month: 3,
 			day: 27,
 		});
+	});
+
+	it("shift days across the years 99 and 100", () => {
+		// Date.UTC(99, 11, 32) would be 2000-01-01.
+		expect(utcMidnight(99, 12, 32).toISOString()).toBe(
+			"0100-01-01T00:00:00.000Z",
+		);
+		expect(utcMidnight(100, 1, 0).toISOString()).toBe(
+			"0099-12-31T00:00:00.000Z",
+		);
 	});
 
 	it("is*() read a Date in that year", () => {

@@ -1,5 +1,5 @@
-import { getEasterPlainDate } from "./easter-sunday.js";
-import { addDays, isDay, type PlainDateLike, toDate } from "./plain-date.js";
+import { easterDay, isEasterDay } from "./computus.js";
+import { type PlainDateLike, toPlainDate } from "./plain-date.js";
 
 /**
  * Returns the calendar date of Easter Monday for a given year, without a time
@@ -13,7 +13,7 @@ import { addDays, isDay, type PlainDateLike, toDate } from "./plain-date.js";
  * @param year
  */
 export function getEasterMondayPlainDate(year: number): PlainDateLike {
-	return addDays(getEasterPlainDate(year), 1);
+	return toPlainDate(getEasterMonday(year));
 }
 
 /**
@@ -29,7 +29,7 @@ export function getEasterMondayPlainDate(year: number): PlainDateLike {
  * @param year
  */
 export function getEasterMonday(year: number): Date {
-	return toDate(getEasterMondayPlainDate(year));
+	return easterDay(year, 1);
 }
 
 /**
@@ -47,5 +47,5 @@ export function getEasterMonday(year: number): Date {
  * @param date
  */
 export function isEasterMonday(date: Date | PlainDateLike): boolean {
-	return isDay(date, getEasterMondayPlainDate);
+	return isEasterDay(date, 1);
 }

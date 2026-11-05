@@ -1,5 +1,5 @@
-import { getEasterPlainDate } from "./easter-sunday.js";
-import { addDays, type PlainDateLike, toDate } from "./plain-date.js";
+import { easterSunday } from "./computus.js";
+import { type PlainDateLike, toPlainDate, utcMidnight } from "./plain-date.js";
 
 /**
  * A day of Holy Week: its English name, a `Date` at midnight UTC and the
@@ -41,11 +41,11 @@ export type HolyWeek = {
  * @param year
  */
 export function getHolyWeek(year: number): HolyWeek {
-	const easter = getEasterPlainDate(year);
+	const easter = easterSunday(year);
 
 	const day = (name: string, offset: number): HolyWeekDay => {
-		const plainDate = addDays(easter, offset);
-		return { name, date: toDate(plainDate), plainDate };
+		const date = utcMidnight(easter.year, easter.month, easter.day + offset);
+		return { name, date, plainDate: toPlainDate(date) };
 	};
 
 	return {
