@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { expect, it } from "vitest";
 import {
 	getEaster,
 	getEasterMonday,
@@ -11,20 +11,13 @@ import {
 	isHolySaturday,
 	type PlainDateLike,
 } from "../lib";
+import { addDays, forEachTimeZone, referenceEaster } from "./date-fns.js";
 
 /**
  * is*() read the local calendar day of a Date and the fields of a plain date.
  * A local date on the right day must match at any time of day and in any
  * process time zone, and the days around it must not.
  */
-const timeZones = [
-	"UTC",
-	"Europe/Prague",
-	"America/New_York",
-	"America/Santiago",
-	"Pacific/Auckland",
-];
-
 const checks: {
 	name: string;
 	is: (date: Date | PlainDateLike) => boolean;
@@ -44,53 +37,18 @@ const times: [hours: number, minutes: number][] = [
 	[23, 30],
 ];
 
-/**
- * Calendar day `offset` days after Easter Sunday of `year`, as
- * [year, monthIndex, day]. getEaster() returns midnight UTC, so its UTC
- * fields are the calendar day.
- */
-function easterDay(year: number, offset: number): [number, number, number] {
-	const easter = getEaster(year);
-	const day = new Date(
-		Date.UTC(
-			easter.getUTCFullYear(),
-			easter.getUTCMonth(),
-			easter.getUTCDate() + offset,
-		),
-	);
-	return [day.getUTCFullYear(), day.getUTCMonth(), day.getUTCDate()];
-}
-
-const originalTimeZone = process.env.TZ;
-
-afterAll(() => {
-	if (originalTimeZone === undefined) {
-		delete process.env.TZ;
-	} else {
-		process.env.TZ = originalTimeZone;
-	}
-});
-
-describe.each(timeZones)("TZ=%s", (timeZone) => {
-	beforeAll(() => {
-		process.env.TZ = timeZone;
-	});
-
-	it("runs in the time zone", () => {
-		// Setting TZ at runtime works in the default forks pool, not in threads.
-		expect(new Intl.DateTimeFormat().resolvedOptions().timeZone).toBe(timeZone);
-	});
-
+forEachTimeZone((timeZone) => {
 	it("is*() match a local date on the day only, at any time of day (1900–2299)", () => {
 		const mismatches: string[] = [];
 
 		for (let year = 1900; year <= 2299; year++) {
+			const easter = referenceEaster(year);
 			for (const { name, is, offset } of checks) {
 				// The day itself, the day before and the day after.
 				for (const delta of [-1, 0, 1]) {
-					const [y, monthIndex, day] = easterDay(year, offset + delta);
+					const { year: y, month, day } = addDays(easter, offset + delta);
 					for (const [hours, minutes] of times) {
-						const date = new Date(y, monthIndex, day, hours, minutes);
+						const date = new Date(y, month - 1, day, hours, minutes);
 						const expected = delta === 0;
 						if (is(date) !== expected) {
 							mismatches.push(`${name}(${date.toString()}) !== ${expected}`);
@@ -116,10 +74,10 @@ describe.each(timeZones)("TZ=%s", (timeZone) => {
 		const mismatches: string[] = [];
 
 		for (let year = 1900; year <= 2299; year++) {
+			const easter = referenceEaster(year);
 			for (const { name, is, offset } of checks) {
 				for (const delta of [-1, 0, 1]) {
-					const [y, monthIndex, day] = easterDay(year, offset + delta);
-					const date = { year: y, month: monthIndex + 1, day };
+					const date = addDays(easter, offset + delta);
 					const expected = delta === 0;
 					if (is(date) !== expected) {
 						mismatches.push(`${name}(${JSON.stringify(date)}) !== ${expected}`);

@@ -1,0 +1,75 @@
+import { describe, expect, it } from "vitest";
+import {
+	isEaster,
+	isEasterMonday,
+	isEasterSunday,
+	isGoodFriday,
+	isHolySaturday,
+} from "../lib";
+import { Temporal, type TemporalApi } from "./date-fns.js";
+
+describe("is*() with a plain date", () => {
+	it("read only year, month and day, also from getters", () => {
+		// Getters on the prototype, like Temporal.PlainDate.
+		class CalendarDay {
+			readonly #iso: string;
+			constructor(iso: string) {
+				this.#iso = iso;
+			}
+			get year() {
+				return Number(this.#iso.slice(0, 4));
+			}
+			get month() {
+				return Number(this.#iso.slice(5, 7));
+			}
+			get day() {
+				return Number(this.#iso.slice(8, 10));
+			}
+		}
+
+		expect(isEaster(new CalendarDay("2024-03-31"))).toBe(true);
+		expect(isEasterSunday(new CalendarDay("2024-03-31"))).toBe(true);
+		expect(isEasterMonday(new CalendarDay("2024-04-01"))).toBe(true);
+		expect(isEaster(new CalendarDay("2024-04-01"))).toBe(false);
+
+		const withTime = { year: 2024, month: 3, day: 29, hour: 23 };
+		expect(isGoodFriday(withTime)).toBe(true);
+	});
+
+	it("do not treat the month as 0-based", () => {
+		expect(isEaster({ year: 2024, month: 2, day: 31 })).toBe(false);
+		expect(isEaster({ year: 2024, month: 3, day: 31 })).toBe(true);
+	});
+});
+
+describe("is*() with Temporal", () => {
+	it.skipIf(Temporal === undefined)("accept a Temporal.PlainDate", () => {
+		const { PlainDate } = Temporal as TemporalApi;
+
+		expect(isGoodFriday(PlainDate.from("2024-03-29"))).toBe(true);
+		expect(isHolySaturday(PlainDate.from("2024-03-30"))).toBe(true);
+		expect(isEaster(PlainDate.from("2024-03-31"))).toBe(true);
+		expect(isEasterSunday(PlainDate.from("2024-03-31"))).toBe(true);
+		expect(isEasterMonday(PlainDate.from("2024-04-01"))).toBe(true);
+		expect(isEaster(PlainDate.from("2024-03-30"))).toBe(false);
+		expect(isEasterMonday(PlainDate.from("2024-03-31"))).toBe(false);
+	});
+
+	it.skipIf(Temporal === undefined)(
+		"accept a Temporal.ZonedDateTime and use its time zone",
+		() => {
+			const { ZonedDateTime } = Temporal as TemporalApi;
+
+			// 2024-03-31T22:30Z: Easter Sunday in UTC, Easter Monday in Prague.
+			expect(
+				isEasterMonday(ZonedDateTime.from("2024-04-01T00:30[Europe/Prague]")),
+			).toBe(true);
+			// 2024-04-01T03:30Z: Easter Monday in UTC, Easter Sunday in New York.
+			expect(
+				isEasterMonday(
+					ZonedDateTime.from("2024-03-31T23:30[America/New_York]"),
+				),
+			).toBe(false);
+		},
+	);
+});

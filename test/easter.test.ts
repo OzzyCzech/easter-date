@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getEaster, isEaster } from "../lib";
-import { fromIsoDate } from "./date-fns.js";
+import { fromIsoDate, plainToIso, referenceEaster } from "./date-fns.js";
 
 // getEaster() returns midnight UTC, so format it in UTC.
 const czechDate = (date: Date) =>
@@ -29,5 +29,32 @@ describe("Easter date tests", () => {
 
 	it("Easter in 2024", () => {
 		expect(isEaster(fromIsoDate("2024-03-31"))).toBe(true);
+	});
+
+	it("the reference algorithm of the tests gives the known dates", () => {
+		const known = [
+			"1954-04-18",
+			"1981-04-19",
+			"2024-03-31",
+			"2025-04-20",
+			"2026-04-05",
+			"2027-03-28",
+			"2028-04-16",
+			"2029-04-01",
+			"2030-04-21",
+			"2031-04-13",
+			"2032-03-28",
+			"2033-04-17",
+			"2049-04-18",
+			"2076-04-19",
+			"2105-04-05",
+			"2106-04-18",
+			"2199-04-14",
+			"2225-03-27",
+			"2299-04-16",
+		];
+		for (const iso of known) {
+			expect(plainToIso(referenceEaster(Number(iso.slice(0, 4))))).toBe(iso);
+		}
 	});
 });

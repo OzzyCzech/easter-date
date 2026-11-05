@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { expect, it } from "vitest";
 import {
 	getEaster,
 	getEasterMonday,
@@ -7,24 +7,18 @@ import {
 	getHolyWeek,
 	type HolyWeek,
 } from "../lib";
-
-const DAY = 24 * 60 * 60 * 1000;
+import {
+	addDays,
+	forEachTimeZone,
+	plainToIso,
+	referenceEaster,
+} from "./date-fns.js";
 
 /**
  * getEaster() returns midnight UTC, so every derived date must land on
  * midnight UTC of the right day as well, regardless of the process time zone
  * and of any DST transition between Easter Sunday and the derived day.
  */
-const timeZones = [
-	"UTC",
-	"Europe/Prague",
-	"Europe/London",
-	"America/New_York",
-	"America/Santiago",
-	"Australia/Sydney",
-	"Pacific/Auckland",
-];
-
 const holyWeekOffsets: Record<keyof HolyWeek, number> = {
 	palmSunday: -7,
 	holyMonday: -6,
@@ -43,6 +37,7 @@ function derivedDates(
 	const holyWeek = getHolyWeek(year);
 
 	return [
+		{ name: "getEaster", date: getEaster(year), offset: 0 },
 		{ name: "getGoodFriday", date: getGoodFriday(year), offset: -2 },
 		{ name: "getHolySaturday", date: getHolySaturday(year), offset: -1 },
 		{ name: "getEasterMonday", date: getEasterMonday(year), offset: 1 },
@@ -54,21 +49,7 @@ function derivedDates(
 	];
 }
 
-const originalTimeZone = process.env.TZ;
-
-afterAll(() => {
-	if (originalTimeZone === undefined) {
-		delete process.env.TZ;
-	} else {
-		process.env.TZ = originalTimeZone;
-	}
-});
-
-describe.each(timeZones)("TZ=%s", (timeZone) => {
-	beforeAll(() => {
-		process.env.TZ = timeZone;
-	});
-
+forEachTimeZone(() => {
 	it("returns Easter Monday at midnight UTC when DST starts on Easter Sunday", () => {
 		expect(getEasterMonday(2024).toISOString()).toBe(
 			"2024-04-01T00:00:00.000Z",
@@ -88,16 +69,16 @@ describe.each(timeZones)("TZ=%s", (timeZone) => {
 		);
 	});
 
-	it("keeps every derived date a whole number of days from Easter Sunday (1900–2299)", () => {
+	it("returns every date at midnight UTC of the right day (1900–2299)", () => {
 		const mismatches: string[] = [];
 
 		for (let year = 1900; year <= 2299; year++) {
-			const easter = getEaster(year).getTime();
+			const easter = referenceEaster(year);
 			for (const { name, date, offset } of derivedDates(year)) {
-				const expected = new Date(easter + offset * DAY);
-				if (date.getTime() !== expected.getTime()) {
+				const expected = `${plainToIso(addDays(easter, offset))}T00:00:00.000Z`;
+				if (date.toISOString() !== expected) {
 					mismatches.push(
-						`${name}(${year}): ${date.toISOString()}, expected ${expected.toISOString()}`,
+						`${name}(${year}): ${date.toISOString()}, expected ${expected}`,
 					);
 				}
 			}
