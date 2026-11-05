@@ -86,4 +86,26 @@ describe("is*() with Temporal", () => {
 			).toBe(false);
 		},
 	);
+
+	it.skipIf(Temporal === undefined)(
+		"read a Temporal date in another calendar as its ISO date",
+		() => {
+			const { PlainDate, ZonedDateTime } = Temporal as TemporalApi;
+			const easter = PlainDate.from("2024-03-31");
+
+			// Buddhist year 2567, Hebrew 21 Adar II 5784.
+			expect(easter.withCalendar("buddhist").year).toBe(2567);
+			expect(isEaster(easter.withCalendar("buddhist"))).toBe(true);
+			expect(isEaster(easter.withCalendar("hebrew"))).toBe(true);
+			expect(isEaster(easter.withCalendar("japanese"))).toBe(true);
+			expect(
+				isEaster(PlainDate.from("2024-03-30").withCalendar("buddhist")),
+			).toBe(false);
+			expect(
+				isEasterMonday(
+					ZonedDateTime.from("2024-04-01T00:30[Europe/Prague][u-ca=hebrew]"),
+				),
+			).toBe(true);
+		},
+	);
 });
