@@ -45,11 +45,15 @@ export function toPlainDate(date: Date): PlainDateLike {
  * or the fields of a {@link PlainDateLike}.
  */
 export function readCalendarDay(input: Date | PlainDateLike): PlainDateLike {
-	return input instanceof Date
-		? {
-				year: input.getFullYear(),
-				month: input.getMonth() + 1,
-				day: input.getDate(),
-			}
-		: input;
+	// Not instanceof: a Date from another realm (a vm context, an iframe) is
+	// not an instance of this realm's Date.
+	if (typeof (input as Date).getFullYear === "function") {
+		const date = input as Date;
+		return {
+			year: date.getFullYear(),
+			month: date.getMonth() + 1,
+			day: date.getDate(),
+		};
+	}
+	return input as PlainDateLike;
 }

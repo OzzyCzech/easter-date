@@ -1,3 +1,4 @@
+import { runInNewContext } from "node:vm";
 import { describe, expect, it } from "vitest";
 import {
 	isEaster,
@@ -7,6 +8,19 @@ import {
 	isHolySaturday,
 } from "../lib";
 import { Temporal, type TemporalApi } from "./date-fns.js";
+
+describe("is*() with a Date", () => {
+	it("accept a Date from another realm (vm context, iframe)", () => {
+		const date = runInNewContext("new Date(2024, 2, 31, 12)") as Date;
+		expect(date instanceof Date).toBe(false);
+
+		expect(isEaster(date)).toBe(true);
+		expect(isEasterMonday(date)).toBe(false);
+		expect(
+			isEasterMonday(runInNewContext("new Date(2024, 3, 1)") as Date),
+		).toBe(true);
+	});
+});
 
 describe("is*() with a plain date", () => {
 	it("read only year, month and day, also from getters", () => {
